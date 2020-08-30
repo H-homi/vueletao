@@ -2,7 +2,8 @@
     <div>
         <!-- <NavBar title="商品列表" left-arrow @click-left="onClickLeft" /> -->
         <div class="goodslistcontainer">
-            <div class="item" v-for="item in goodslistData" :key="item.id">
+            <!-- <div class="item" v-for="item in goodslistData" :key="item.id"> -->
+            <router-link tag="div" :to="'/goodsinfo/'+item.id"  class="item" v-for="item in goodslistData" :key="item.id">
                 <img :src="item.img_url" alt="">
                 <div class="title">{{ item.title }}</div>
                 <div class="info">
@@ -15,7 +16,10 @@
                         <span>剩{{ item.stock_quantity }}件</span>
                     </div>
                 </div>
-            </div>
+            </router-link>
+
+            <router-view></router-view>
+            <!-- </div> -->
 
         </div>
         <Button color='#ee0a24' size="large" @click="appendGoodslistData(createPage++)">加载更多</Button>
@@ -23,8 +27,9 @@
 </template>
 
 <script>
-import { NavBar , Button  } from 'vant';
-import { getGoodslistContainer } from '@/api/index.js'
+import { NavBar , Button,Toast  } from 'vant';
+import { getGoodslistContainer } from '@/api/index.js';
+import router from 'vue-router';
     export default {
         components:{
             NavBar,Button
@@ -47,7 +52,7 @@ import { getGoodslistContainer } from '@/api/index.js'
                 var res = await getGoodslistContainer(this.createPage);
                 // console.log(res.message.length);
                 if(res.message.length == 0){
-                    this.$toast('加载完毕');
+                    Toast('加载完毕');
                 }else{
                     this.goodslistData = this.goodslistData.concat(res.message);
                     // console.log(this.goodslistData);

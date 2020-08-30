@@ -54,7 +54,8 @@
             <Divider :style="{color:'#333',borderColor:'#333','font-size':'16px'}">为你推荐</Divider>
 
             <div class="goodList">
-                <div class="item" v-for="item in recommendData" :key="item.id">
+                <!-- <div class="item" v-for="item in recommendData" :key="item.id"> -->
+                <router-link class="item" tag="div" :to="/goodsinfo/+item.id" v-for="item in recommendData" :key="item.id">
                     <!-- <img :src="item.img_url" alt=""> -->
                     <img v-lazy="item.img_url" alt="">
                     <div class="text">
@@ -68,7 +69,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </router-link>
 
             </div>
         </div>
