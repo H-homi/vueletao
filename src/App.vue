@@ -5,7 +5,8 @@
             <img src="@/assets/images/logo.png" alt="">
             <Search v-model="searchValue" placeholder="请输入搜索关键词" />
         </div>
-        <NavBar v-if="!isShow" :title="title" left-arrow @click-left="$router.go(-1)" />
+
+        <Sticky><NavBar v-if="!isShow" :title="title" left-arrow @click-left="$router.go(-1)" /></Sticky>
         <!-- 中部 (不能写固定，放由路由匹配的动态内容)-->
         <!-- <div class=""></div> -->
         <router-view></router-view>
@@ -22,11 +23,11 @@
 </template>
 
 <script>
-import { Search, Tabbar, TabbarItem ,NavBar } from 'vant'
+import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
     export default {
         name:'App',
         components:{
-            Search,Tabbar,TabbarItem,NavBar
+            Search,Tabbar,TabbarItem,NavBar,Sticky
         },
         data () {
             return {
@@ -84,7 +85,9 @@ import { Search, Tabbar, TabbarItem ,NavBar } from 'vant'
             flex: 1;
         }
     }
-
+    .navbar{
+        position: fixed;
+    }
     .headerSticky{
         position: sticky;
         min-width: 320px;

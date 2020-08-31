@@ -7,6 +7,7 @@ import { Lazyload } from 'vant';
 
 // 引入全局过滤器
 import '@/util/filter.js';
+import '../src/assets/css/normalize.css'
 
 // 注册时可以配置额外的选项
 Vue.use(Lazyload, {

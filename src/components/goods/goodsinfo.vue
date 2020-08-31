@@ -37,9 +37,9 @@
 
         <GoodsAction>
             <GoodsActionIcon icon='chat-o' text='客服' dot @click="onClickIcon" />
-            <GoodsActionIcon icon='cart-o' text='购物车' :badge=badge @click="onClickIcon" />
-            <GoodsActionButton type='warning' text='加入购物车' @click="onClickButton" />
-            <GoodsActionButton type='danger' text='立即购买' @click="onClickButton" />
+            <GoodsActionIcon to='/mycar' icon='cart-o' text='购物车' :badge=cartNumber />
+            <GoodsActionButton type='warning' text='加入购物车' @click="addTocar" />
+            <GoodsActionButton type='danger' text='立即购买' />
         </GoodsAction>
     </div>
 </template>
@@ -57,7 +57,8 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
                 thumbimagesData : [],
                 goodsData : {},
                 value:1,
-                badge:1,
+                cartList:[],
+                cartNumber:0,
             }
         },
         methods:{
@@ -67,18 +68,46 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
                 this.thumbimagesData = res.message;
                 this.goodsData = res2.message;
             },
+            getCartList(){
+                this.cartList = JSON.parse(localStorage.getItem('cartList')) || [];
+                this.getCartNumber()
+            },
+            getCartNumber(){
+                this.cartList.forEach(v => {
+                    this.cartNumber += v.number;
+                });
+            },
             onClickIcon() {
                 Toast('点击图标');
             },
-            onClickButton() {
-                Toast('点击按钮');
+            addTocar() {
+                var current = this.cartList.find(v =>{
+                    return v.id == this.goodsId;
+                });
+                if(current){
+                    current.number += this.value;
+                    current.price = this.goodsData.sell_price * current.number;
+                }else{
+                    var cart = {
+                        id:this.goodsId,
+                        number:this.value,
+                        price:  this.goodsData.sell_price *  this.value ,
+                        selected:false
+                    }
+                    this.cartList.push(cart);
+                }
+                this.cartNumber += this.value;
+                this.value = 1;
+                localStorage.setItem('cartList',JSON.stringify(this.cartList));
             },
         },
         created(){
             this.goodsId = this.$route.params.id;
             this.getGoodsData();
             this.$parent.showNavBar({title:'商品详细'});
-        }
+            this.getCartList();
+        },
+
 
     }
 </script>
@@ -145,6 +174,9 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
             flex-direction: column;
         }
         .content /deep/ img{
+            width: 100%;
+        }
+        .content /deep/ table{
             width: 100%;
         }
     }

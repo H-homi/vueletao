@@ -29,3 +29,16 @@ export async function getthumbimages(id){
 export async function getnews(id) {
     return await instance.get(`/getnew/${id}`);
 }
+
+// 获取评论
+export async function getcomments(newsid, pageindex) {
+    return await instance.get(`/getcomments/${newsid}?pageindex=${pageindex}`);
+}
+//发表评论
+export async function postCommentData(value,id) {
+    return await instance.get(`/postcomment/${id}`, {content:value});
+}
+//获取购物车商品信息
+export async function getshopcarlistData(id){
+    return await instance.get(`/getshopcarlist/${id}`);
+}
