@@ -16,6 +16,9 @@ import goodsinfo from '@/components/goods/goodsinfo.vue';
 // 获取文章详细
 import getnews from '@/components/news/getnew.vue';
 
+// 获取美图欣赏
+import getPhoto from '@/components/photo/photo.vue';
+
 const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home', component: home },
@@ -24,7 +27,8 @@ const routes = [
     { path: '/goodslist', component: goodslist },
     { path: '/toutiao', component: toutiao },
     { path: '/goodsinfo/:id', component: goodsinfo },
-    { path: '/getnews/:id', component: getnews }
+    { path: '/getnews/:id', component: getnews },
+    { path: '/getPhoto', component: getPhoto },
 ]
 
 const router = new VueRouter({

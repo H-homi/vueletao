@@ -3,12 +3,13 @@ import App from './App.vue';
 Vue.config.productionTip = false
 
 import router from '@/router/index.js';
-import { Lazyload } from 'vant';
+import { Lazyload,Toast } from 'vant';
 
 // 引入全局过滤器
 import '@/util/filter.js';
 import '../src/assets/css/normalize.css'
 
+Vue.prototype.$toast = Toast;
 // 注册时可以配置额外的选项
 Vue.use(Lazyload, {
     lazyComponent: true,

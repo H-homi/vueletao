@@ -42,3 +42,16 @@ export async function postCommentData(value,id) {
 export async function getshopcarlistData(id){
     return await instance.get(`/getshopcarlist/${id}`);
 }
+
+//获取美图欣赏
+export async function getcategory() {
+    return await instance.get(`/getcategory`);
+}
+// 获取美图欣赏的右边内容
+export async function getcatelist(id) {
+    return await instance.get(`/getcatelist/${id}`);
+}
+
+/* export async function getthumbimages(id) {
+    return await instance.get(`/getthumbimages/${id}`);
+} */

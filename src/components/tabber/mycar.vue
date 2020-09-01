@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="goods_list">
+        <div class="goods_list" v-if="false">
             <div class="goods_item" v-for="(item,index) in cartData" :key="item.id">
                 <div class="switchButton">
                     <vant-switch v-model="item.selected" />
@@ -49,6 +49,7 @@ import {getshopcarlistData} from '@/api/index.js'
         methods:{
             getCartData(){
                 this.cartData = JSON.parse( localStorage.getItem('cartList') || [] );
+                this.isShow = true;
                 if(this.cartData.length !== 0){
                     this.isShow = false;
                     this.cartData.forEach(v => {
@@ -66,8 +67,8 @@ import {getshopcarlistData} from '@/api/index.js'
         created(){
             // 显示navbar
             this.$parent.showNavBar({title:'我的购物车'});
-            this.getCartData();
-            this.$parent.active = 1;
+            this.$parent.isShowTabbar = true;
+            // this.getCartData();
             // this.getshopcarlist();
         },
         /* watch:{

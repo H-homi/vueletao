@@ -12,8 +12,8 @@
         <router-view></router-view>
         <!-- 底部 -->
 
-        <div class="navbar">
-            <Tabbar v-model="active">
+        <div class="navbar" v-if="isShowTabbar">
+            <Tabbar v-model="active" >
                 <TabbarItem icon="wap-home-o" to='/home'>首页</TabbarItem>
                 <TabbarItem icon="cart-o" to='/mycar'>购物车</TabbarItem>
                 <TabbarItem icon="user-o" to='/user'>我的乐淘</TabbarItem>
@@ -34,7 +34,8 @@ import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
                 searchValue : '',
                 active: 0,
                 isShow:true,
-                title:''
+                title:'',
+                isShowTabbar:true,
             }
         },
         methods:{
@@ -59,6 +60,7 @@ import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
             this.$nextTick(function(){
                 this.controlHeader();
             });
+            this.isShowTabbar = true;
         }
 
     }

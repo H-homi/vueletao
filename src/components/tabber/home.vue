@@ -22,7 +22,7 @@
                 <img src="@/assets/images/menu19.png" alt="">
                 <span>乐淘头条</span>
             </GridItem>
-            <GridItem >
+            <GridItem to='/getPhoto'>
                 <img src="@/assets/images/menu18.png" alt="">
                 <span>美图欣赏</span>
             </GridItem>
