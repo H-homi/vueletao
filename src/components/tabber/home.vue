@@ -107,6 +107,7 @@ import {getLunboData,getRecommendData} from '@/api/index.js';
             this.getLunbo();
             this.getRecommend();
             this.$parent.isShow = true;
+            // this.$parent.isShowTabbar = true;
         }
     }
 </script>

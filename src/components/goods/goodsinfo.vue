@@ -37,7 +37,7 @@
 
         <GoodsAction>
             <GoodsActionIcon icon='chat-o' text='客服' dot @click="onClickIcon" />
-            <GoodsActionIcon to='/mycar' icon='cart-o' text='购物车' :badge=cartNumber />
+            <GoodsActionIcon to='/mycar' icon='cart-o' text='购物车' :badge="$store.getters.carTotal" />
             <GoodsActionButton type='warning' text='加入购物车' @click="addTocar" />
             <GoodsActionButton type='danger' text='立即购买' />
         </GoodsAction>
@@ -81,9 +81,17 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
                 Toast('点击图标');
             },
             addTocar() {
-                var current = this.cartList.find(v =>{
+                var goods = {
+                    id:this.goodsId,
+                    number:this.value,
+                    price:  this.goodsData.sell_price,
+                    selected:true
+                }
+                this.$store.commit('addCar',goods)
+                /* var current = this.cartList.find(v =>{
                     return v.id == this.goodsId;
                 });
+
                 if(current){
                     current.number += this.value;
                     current.price = this.goodsData.sell_price * current.number;
@@ -91,14 +99,15 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
                     var cart = {
                         id:this.goodsId,
                         number:this.value,
-                        price:  this.goodsData.sell_price *  this.value ,
+                        price:  this.goodsData.price,
                         selected:false
                     }
                     this.cartList.push(cart);
                 }
+
                 this.cartNumber += this.value;
                 this.value = 1;
-                localStorage.setItem('cartList',JSON.stringify(this.cartList));
+                localStorage.setItem('cartList',JSON.stringify(this.cartList)); */
             },
         },
         created(){
@@ -106,6 +115,7 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
             this.getGoodsData();
             this.$parent.showNavBar({title:'商品详细'});
             this.getCartList();
+            this.$parent.isShowTabbar = false;
         },
 
 
@@ -181,9 +191,9 @@ import {getGoodsinfo,getthumbimages} from '@/api/index.js'
         }
     }
 
-    .van-goods-action{
-        bottom: 50px;
+    /* .van-goods-action{
+        // bottom: 50px;
     }
-
+ */
 }
 </style>

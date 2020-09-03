@@ -6,7 +6,7 @@
             <Search v-model="searchValue" placeholder="请输入搜索关键词" />
         </div>
 
-        <Sticky><NavBar v-if="!isShow" :title="title" left-arrow @click-left="$router.go(-1)" /></Sticky>
+        <Sticky><NavBar v-if="!isShow" :title="title" left-arrow @click-left="goBack" /></Sticky>
         <!-- 中部 (不能写固定，放由路由匹配的动态内容)-->
         <!-- <div class=""></div> -->
         <router-view></router-view>
@@ -15,7 +15,7 @@
         <div class="navbar" v-if="isShowTabbar">
             <Tabbar v-model="active" >
                 <TabbarItem icon="wap-home-o" to='/home'>首页</TabbarItem>
-                <TabbarItem icon="cart-o" to='/mycar'>购物车</TabbarItem>
+                <TabbarItem icon="cart-o" to='/mycar' :badge='$store.getters.carTotal'>购物车</TabbarItem>
                 <TabbarItem icon="user-o" to='/user'>我的乐淘</TabbarItem>
             </Tabbar>
         </div>
@@ -54,13 +54,17 @@ import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
             showNavBar(options){
                 this.title = options.title;
                 this.isShow = false;
+            },
+            goBack(){
+                this.$router.go(-1);
+                this.isShowTabbar = true;
+                this.active = 0;
             }
         },
         created(){
             this.$nextTick(function(){
                 this.controlHeader();
             });
-            this.isShowTabbar = true;
         }
 
     }

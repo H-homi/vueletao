@@ -39,8 +39,8 @@ export async function postCommentData(value,id) {
     return await instance.get(`/postcomment/${id}`, {content:value});
 }
 //获取购物车商品信息
-export async function getshopcarlistData(id){
-    return await instance.get(`/getshopcarlist/${id}`);
+export async function getshopcarlistData(ids){
+    return await instance.get(`/getshopcarlist/${ids}`);
 }
 
 //获取美图欣赏

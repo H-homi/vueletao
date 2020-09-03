@@ -9,6 +9,7 @@ import { Lazyload,Toast } from 'vant';
 import '@/util/filter.js';
 import '../src/assets/css/normalize.css'
 
+import store from '@/store/carStore.js'
 Vue.prototype.$toast = Toast;
 // 注册时可以配置额外的选项
 Vue.use(Lazyload, {
@@ -16,6 +17,7 @@ Vue.use(Lazyload, {
 });
 
 new Vue({
+    store,
     router,
     render: h => h(App)
 }).$mount('#app')

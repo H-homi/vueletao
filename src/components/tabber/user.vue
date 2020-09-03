@@ -8,7 +8,7 @@
                 </CellGroup>
             </Cell>
             <Cell title="修改密码" is-link />
-            <Cell title="我的订单" is-link />
+            <Cell title="我的订单" to='/order' is-link />
             <Cell title="地址管理" is-link />
         </div>
         <br>

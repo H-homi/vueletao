@@ -19,6 +19,9 @@ import getnews from '@/components/news/getnew.vue';
 // 获取美图欣赏
 import getPhoto from '@/components/photo/photo.vue';
 
+// 获取订单页面
+import order from '@/components/user/order.vue'
+
 const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home', component: home },
@@ -29,6 +32,7 @@ const routes = [
     { path: '/goodsinfo/:id', component: goodsinfo },
     { path: '/getnews/:id', component: getnews },
     { path: '/getPhoto', component: getPhoto },
+    { path: '/order', component: order }
 ]
 
 const router = new VueRouter({
