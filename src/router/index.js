@@ -20,7 +20,23 @@ import getnews from '@/components/news/getnew.vue';
 import getPhoto from '@/components/photo/photo.vue';
 
 // 获取订单页面
-import order from '@/components/user/order.vue'
+import order from '@/components/user/order.vue';
+
+// 登录页面
+import login from '@/components/user/login.vue';
+
+// 注册页面
+import register from '@/components/user/register.vue';
+
+// 地址管理页面
+import addressmanage from '@/components/address/addressmanage.vue';
+
+// 新增用户收货地址
+import addressadd from '@/components/address/addressadd.vue';
+
+// 编辑收货地址
+import addressedit from '@/components/address/addressedit.vue';
+
 
 const routes = [
     { path: '/', redirect: '/home' },
@@ -32,11 +48,30 @@ const routes = [
     { path: '/goodsinfo/:id', component: goodsinfo },
     { path: '/getnews/:id', component: getnews },
     { path: '/getPhoto', component: getPhoto },
-    { path: '/order', component: order }
+    { path: '/order', component: order },
+    { path: '/login', component: login },
+    { path: '/register', component: register },
+    { path: '/addressmanage', component: addressmanage },
+    { path: '/addressadd', component: addressadd },
+    { path: '/addressedit/:addressInfo', component: addressedit,props: true },
+
+
 ]
 
 const router = new VueRouter({
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (from.path === '/login' || from.path === '/register'){
+        Vue.nextTick(function () {
+            let ele = document.querySelector('.van-nav-bar__left');
+            if (ele) {
+                ele.style.display = ''
+            }
+        })
+    }
+    next();
 })
 
 export default router;

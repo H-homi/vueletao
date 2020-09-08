@@ -28,7 +28,7 @@ function uploadDist() {
         //递归上传
         recursive: true,
         // 并发
-        concurrency: 10,
+        concurrency: 20,
 
         // 验证文件
         validate: function (itemPath) {

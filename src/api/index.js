@@ -55,3 +55,40 @@ export async function getcatelist(id) {
 /* export async function getthumbimages(id) {
     return await instance.get(`/getthumbimages/${id}`);
 } */
+
+//登录请求
+export async function userLogin(data) {
+    return await instance.post(`/login`,data);
+}
+
+// 验证token
+export async function isLogin(token) {
+    // var token = localStorage.getItem('token');
+
+    return await instance.post(`/checktoken?token=${token}`);
+}
+
+// 注册请求
+export async function registerUser(data) {
+    return await instance.post(`/register`, data);
+}
+
+// 获取用户收货地址
+export async function getaddressData(id) {
+    return await instance.get(`/getaddress/${id}?_v=${Math.random()}`);
+}
+
+// 新增地址
+export async function addressAddData(data,userid) {
+    return await instance.post(`/addaddress/${userid}`, data);
+}
+
+//编辑地址
+export async function addressEditData(data) {
+    return await instance.post(`/updateaddress/${data.id}`, data);
+}
+
+// 删除地址
+export async function addressDeleteData(id) {
+    return await instance.post(`/deladdress/${id}`);
+}
