@@ -31,6 +31,7 @@ import { NavBar , Button,Toast  } from 'vant';
 import { getGoodslistContainer } from '@/api/index.js';
 import router from 'vue-router';
     export default {
+        name:'goodslist',
         components:{
             NavBar,Button
         },
@@ -62,6 +63,9 @@ import router from 'vue-router';
         created () {
             this.getGoodslistData();
             // 显示navbar
+            this.$parent.showNavBar({title:'商品列表'});
+        },
+        activated(){
             this.$parent.showNavBar({title:'商品列表'});
         }
     }

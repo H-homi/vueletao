@@ -11,6 +11,7 @@ var carData = JSON.parse(localStorage.getItem('carData')) || [];
 const store = new Vuex.Store({
     state:{
         carData:carData,
+        isPending:false
     },
     mutations:{
         addCar(state,goods){
@@ -52,6 +53,10 @@ const store = new Vuex.Store({
                 state.carData.splice(obj.index,1);
             }
             localStorage.setItem('carData', JSON.stringify(state.carData));
+        },
+         // 修改isPending的状态
+        changeIsPending(state,bool){
+            state.isPending = bool;
         }
     },
     getters:{

@@ -9,7 +9,10 @@
         <Sticky><NavBar v-if="!isShow" :title="title" left-arrow @click-left="goBack" /></Sticky>
         <!-- 中部 (不能写固定，放由路由匹配的动态内容)-->
         <!-- <div class=""></div> -->
-        <router-view></router-view>
+        <keep-alive include="home,newslist,goodslist">
+            <router-view></router-view>
+        </keep-alive>
+
         <!-- 底部 -->
 
         <div class="navbar" v-if="isShowTabbar">
@@ -23,7 +26,9 @@
 </template>
 
 <script>
-import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
+import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant';
+// 导入vuex中的state的辅助函数
+import {mapState} from 'vuex';
     export default {
         name:'App',
         components:{
@@ -36,6 +41,29 @@ import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
                 isShow:true,
                 title:'',
                 isShowTabbar:true,
+                // data中监听不到数据的变化
+                // isPending:this.$store.state.isPending,
+            }
+        },
+        computed:{
+            /*isPending : function () {
+                return this.$store.state.isPending;
+            }*/
+            // 等价于
+            ...mapState(['isPending'])
+        },
+        watch:{
+            'isPending':function (isPending) {
+                // 判断true还是false,给loading 和关闭loading即可
+                console.log(isPending);
+                isPending
+                ? this.$toast.loading({
+                    message:'loading...',
+                    forbidClick : true,
+                    duration : 600 // 持续展示toast
+                    })
+                    :this.$toast.clear();
+                    // : console.log(111);
             }
         },
         methods:{
@@ -56,18 +84,38 @@ import { Search, Tabbar, TabbarItem ,NavBar,Sticky  } from 'vant'
                 this.isShow = false;
             },
             goBack(){
-                this.$router.go(-1);
+                // console.log(a);
+                // console.log(this.$router);
+                // console.log(this.$route);
+                if(this.$route.path.indexOf('addressmanage') != -1){
+                    this.$router.push('/user');
+                }else if(this.$route.path.indexOf('user') != -1){
+                    this.$router.push('/home');
+                }else{
+                    this.$router.go(-1);
+                }
                 this.isShowTabbar = true;
-                this.active = 0;
+                // this.active = 0;
             }
         },
         created(){
             this.$nextTick(function(){
                 this.controlHeader();
             });
+        },
+        activated(){
+
+        },
+        deactivated(){
+
         }
 
     }
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+<script>
+window.vConsole = new window.VConsole();
 </script>
 
 <style lang="scss" scoped>

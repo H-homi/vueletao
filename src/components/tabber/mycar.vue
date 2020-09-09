@@ -7,6 +7,7 @@
                 v-model="chosenAddressId"
                 :list="list"
                 default-tag-text="默认"
+                @edit="onEdit"
             />
             <Divider>购买的商品</Divider>
             <div class="goods_item" v-for="(item,index) in carData" :key="item.id">
@@ -37,8 +38,10 @@
             <div>
                 <img src="../../assets/images/car.png" alt="">
             </div>
-            <div>
-                <a href="">登录</a>后可以同步电脑与手机购物车中的商品
+
+            <div v-if="!userInfo">
+<!--                <a href="">登录</a>后可以同步电脑与手机购物车中的商品-->
+                <router-link to="/login">登录</router-link>后可以同步电脑与手机购物车中的商品
             </div>
         </div>
 
@@ -47,23 +50,17 @@
 
 <script>
 import { Switch,Stepper ,Button,AddressList ,Divider ,Cell,SubmitBar  } from 'vant';
-import {getshopcarlistData} from '@/api/index.js'
+import {getshopcarlistData,getaddressData} from '@/api/index.js'
+
     export default {
         data () {
             return {
                 isShow:false,
                 carData:[],
                 cartListData:[],
-                chosenAddressId: '1',
-                list: [
-                    {
-                    id: '1',
-                    name: '张三',
-                    tel: '13000000000',
-                    address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-                    isDefault: true,
-                    },
-                ],
+                chosenAddressId: '',
+                userInfo: {},
+                list: [],
             }
         },
         components:{
@@ -106,6 +103,24 @@ import {getshopcarlistData} from '@/api/index.js'
                     this.carData.splice(index,1);
                 }
                 this.$store.commit('delCarGoods',{goods_id,index})
+            },
+            async getUserAddress(){
+                if(!this.userInfo){
+                    return;
+                }
+                var res = await getaddressData(this.userInfo.id);
+                // console.log(res)
+                res.map(v =>{
+                    v.address = v.province + v.city + v.country;
+                    if(v.isDefault == 1){
+                        v.isDefault = true;
+                        this.chosenAddressId = v.id;
+                    }
+                })
+                this.list = res;
+            },
+            onEdit(item){
+                this.$router.push(`/addressedit/${JSON.stringify(item)}`)
             }
         },
 
@@ -117,7 +132,9 @@ import {getshopcarlistData} from '@/api/index.js'
             // this.getcarData();
             this.getshopcarlist();
             this.$parent.active = 1;
+            this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
             // console.log(this.$store.getters.getGoodsNumber);
+            this.getUserAddress();
         },
 
 

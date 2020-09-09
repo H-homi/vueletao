@@ -75,7 +75,8 @@ export async function registerUser(data) {
 
 // 获取用户收货地址
 export async function getaddressData(id) {
-    return await instance.get(`/getaddress/${id}?_v=${Math.random()}`);
+    // return await instance.get(`/getaddress/${id}?_v=${Math.random()}`);
+    return await instance.get(`/getaddress/${id}`);
 }
 
 // 新增地址

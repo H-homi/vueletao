@@ -64,6 +64,7 @@ import { userLogin } from '@/api/index.js'
             },
         },
         created(){
+            this.$parent.isShowTabbar = false;
             this.$parent.showNavBar({title:'登录'});
             this.$nextTick(function(){
                 document.querySelector('.van-nav-bar__left').style.display='none'

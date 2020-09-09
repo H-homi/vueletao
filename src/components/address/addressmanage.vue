@@ -12,7 +12,7 @@
 
 <script>
 import { AddressList } from 'vant';
-import { getaddressData } from '@/api/index.js'
+import { getaddressData } from '@/api/index.js';
     export default {
         data () {
             return {

@@ -34,6 +34,7 @@ import {NavBar,PullRefresh,Toast,Button,Loading } from 'vant';
 import {getNewslistData} from '@/api/index.js'
 
     export default {
+        name:'newslist',
         data () {
             return {
                 newslist:[],
@@ -83,6 +84,9 @@ import {getNewslistData} from '@/api/index.js'
         created(){
             this.getNewslist();
             // 显示navbar
+            this.$parent.showNavBar({title:'新闻列表'});
+        },
+        activated(){
             this.$parent.showNavBar({title:'新闻列表'});
         }
     }

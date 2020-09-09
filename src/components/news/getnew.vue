@@ -33,6 +33,7 @@
 import {getnews,getcomments,postCommentData} from '@/api/index.js';
 import {Field ,Button,Toast} from 'vant';
     export default {
+        name:'newsdetail',
         components:{
             Field,Button
         },

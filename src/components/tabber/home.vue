@@ -81,6 +81,7 @@
 import {Swipe,SwipeItem,Search,Grid,GridItem,Divider,Lazyload } from 'vant';
 import {getLunboData,getRecommendData} from '@/api/index.js';
     export default {
+        name:'home',
         data () {
             return {
                 searchValue:'',
@@ -109,7 +110,13 @@ import {getLunboData,getRecommendData} from '@/api/index.js';
             this.$parent.isShow = true;
             this.$parent.isShowTabbar = true;
             this.$parent.active = 0;
-        }
+        },
+        activated(){
+            this.$parent.isShow = true;
+            this.$parent.isShowTabbar = true;
+            this.$parent.active = 0;
+        },
+
     }
 </script>
 

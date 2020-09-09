@@ -27,12 +27,14 @@ import areaList from '../../util/area.js'
             return {
                 areaList,
                 areaCode:'',
-                areaInfo:{}
+                areaInfo:{},
+                proCityCountry:[]
             };
         },
         created () {
             this.$parent.showNavBar({title:'编辑地址'});
             this.areaInfo = JSON.parse(this.addressInfo);
+            this.areaCode = this.areaInfo.areaCode
             // this.areaInfo.areaCode = this.areaInfo.areaCode.split('-')[2];
             var temp = this.areaInfo.areaCode.lastIndexOf('-');
             if(temp != -1){
@@ -44,12 +46,13 @@ import areaList from '../../util/area.js'
         },
         methods: {
             async onSave(values) {
+                console.log(values)
                 var user = JSON.parse(localStorage.getItem('userInfo'));
                 values.user_id = user.id;
                 values.areaCode = this.areaCode;
-                values.isDefault = values.isDefault==true ?1 :0;
-                values.country = values.country;
-
+                values.isDefault = values.isDefault ?1 :0;
+                values.country = values.county;
+                // return;
                 var { status,message } = await addressEditData(values);
                 this.$toast(message)
                 if(status == 0){
